@@ -43,7 +43,7 @@ solutions:
   image: "/images/coco3.png"
   background: "#97BED6"
   text: |
-   The complete front-office solution for the pricing, the hedging and the analysis of convertible securities.  It consists of three components: a data model of terms  and conditions, a pricing engine and an excel front-end.
+        The complete front-office solution for the pricing, the hedging and the analysis of convertible securities.  It consists of three components: a data model of            terms and conditions, a pricing engine and an excel front-end.
   btn:
   - text: Explore
     url: "#"
@@ -56,7 +56,7 @@ solutions:
   image: "/images/volatility.png"
   background: ""
   text: |
-  The variance swap is an equity derivative with payoff the realized variance of the underlying equity or index. Equity-to-Credit is the new form of volatility            arbitrage. Credit risk (through the probability of the underlying equity jumping to zero) adds a component to option premium that cannot be financed by the usual      rebalancing of the delta hedge issuing from the Black-Scholes-Merton model
+    The variance swap is an equity derivative with payoff the realized variance of the underlying equity or index. Equity-to-Credit is the new form of volatility            arbitrage. Credit risk (through the probability of the underlying equity jumping to zero) adds a component to option premium that cannot be financed by the usual      rebalancing of the delta hedge issuing from the Black-Scholes-Merton model
   btn:
   - text: Explore
     url: "#"

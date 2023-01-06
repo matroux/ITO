@@ -1,5 +1,5 @@
 ---
-title: The Management
+title: Contact Us
 desc: "WE PROVIDE THE SOLUTION FOR ASSET MANAGEMENT"
 slug: "contact-us/"
 image: "/images/clients.jpg"
@@ -14,7 +14,7 @@ topInfo:
   - text: ADDRESS <br> <small>36 RUE LACÉPÈDE <br> 75005 PARIS, FRANCE</small>
     image: "/images/mappin.png"
     position: "center text-center"
-    class: contact-info mt-0
+    class:  mt-0
 widgets:
   before:
     - enable: true

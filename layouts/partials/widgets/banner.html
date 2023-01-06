@@ -30,7 +30,8 @@
           <p class="mb-5{{ if eq $layout "secondary"}} text-black{{ end }}">{{ .content | markdownify }}</p>
           {{ with .button }}
             {{ if .enable }}
-            <a href="{{ .link | absLangURL }}" class="btn btn-primary d-block d-sm-inline-block hover-ripple">{{ .label }}</a>
+            <!-- <a href="{{ .link | absLangURL }}" class="btn btn-primary d-block d-sm-inline-block hover-ripple">{{ .label }}</a> -->
+            <a href="{{ .link }}"  class="btn btn-primary d-block d-sm-inline-block hover-ripple" {{ if .popup }} data-bs-toggle="modal" data-bs-target="{{ .link }}"{{end}}>{{ .label }}</a>
             {{ end }}
           {{ end }}
         </div>

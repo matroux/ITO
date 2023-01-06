@@ -1,0 +1,187 @@
+{{ if .enable }}
+
+{{ $odd := false }}
+{{ $type := .type }}
+{{ $lead := .lead }}
+{{ $layout := .layout | default "primary" }}
+{{ $class := .class }}
+<section class="section publications card-list">
+  <div class="container-fluid">
+    <div class="row pb-5">
+      <div class="col section-heading text-center">
+        <h2 class="mb-0">{{.title}}</h2>
+        <p class="mt-0">{{ .subtitle | markdownify }}</p>
+      </div>
+    </div>
+    {{ range $i, $data := .itemlists }}
+    <div class="container {{if ne $i 0}} mt-5 {{end}}" id="{{.title | lower}}">
+      <div class="row">
+        <div class="col-lg-4 d-flex justify-content-between mb-4">
+          <div>
+            <h3>{{.title}}</h3>
+            <p>{{ .subtitle | markdownify }}</p>
+          </div>
+          {{ $maini := $i}}
+          {{ if ne .title "Articles"}}
+          <hr>
+          {{ end }}
+        </div>
+        {{ if eq .item_list_type "publications"}}
+        <div class="col-lg-8">
+          <ul class="nav nav-pills publications-nav-pills" id="myTab" role="tablist">
+            {{ range $i, $e := .card }}
+            <li class="nav-item me-2 mt-2" role="presentation">
+              <button class="nav-link border {{if eq $i 0}}active{{end}}" id="{{.category | urlize | lower}}-tab" data-bs-toggle="tab" data-bs-target="#{{.category | urlize | lower}}-tab-pane" type="button" role="tab" aria-controls="{{.category | urlize | lower}}-tab-pane" aria-selected="true">{{.category | title}}</button>
+            </li>
+            {{ end }}
+          </ul>
+          <hr>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    
+    {{ if eq .item_list_type "publications"}}
+    <div class="tab-content" id="myTabContent">
+      {{ range $i, $e := .card }}
+      {{ $loadMoreBox := $i }}
+      {{ $category := .category }}
+      <div class="tab-pane fade {{if eq $i 0}}show active{{end}}" id="{{$category | urlize | lower}}-tab-pane" role="tabpanel" aria-labelledby="{{$category | urlize | lower}}-tab" tabindex="0">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
+          {{ range $j, $el := .card_lists }}
+          <div class="col mb-1 bBox{{$loadMoreBox}} {{if ne $j 0}} mBox{{$loadMoreBox}}{{end}}" {{if gt $j 3 }} style="display:none;" {{end}}>
+            <div class="card item h-100 overflow-hidden">
+              <div class="bd-placeholder-img">
+                {{if .image}}
+                <a href="{{.link}}" {{ if findRE `^http` .link }} target="_blank" rel="noopener" {{ end }}>
+                  <img src="{{.image}}" class=" img-fluid ">
+                </a>
+                {{end}}
+              </div>
+              <div class="card-body">
+                <small class=" fw-bold">{{$category | title}}</small>
+                <small class="d-block mb-2 text-uppercase text-muted">{{.date}}</small>
+                <h3 class="mb-3 card-text lh-base">
+                  <a href="{{.link}}" {{ if findRE `^http` .link }} target="_blank" rel="noopener" {{ end }}>{{.title}}</a>
+                </h3>
+                {{ with .content}}
+                <small>{{ . }}</small>
+                {{end}}
+              </div>
+            </div>
+          </div>
+          {{end}}
+      
+          <div class="col-12 text-center my-4">
+            <span id="loadMoreBtn{{$i}}" class="text-center mx-auto">
+              <a href="#" class="btn btn-primary d-block d-sm-inline-block hover-ripple">Load More</a>
+            </span>
+          </div>
+          <script>
+            $(document).ready(function () {
+              $(".mBox{{$i}}").slice(0, 3).show();
+              if ($(".bBox{{$i}}:hidden").length != 0) {
+                $("#loadMoreBtn{{$i}}").show();
+              }
+              $("#loadMoreBtn{{$i}}").on('click', function (e) {
+                console.log("clciekd more");
+                e.preventDefault();
+                $(".mBox{{$i}}:hidden").slice(0, 8).slideDown();
+                if ($(".mBox{{$i}}:hidden").length == 0) {
+                  $("#loadMoreBtn{{$i}}").fadeOut('slow');
+                }
+              });
+            });
+          </script>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-1">
+      {{ range $i, $data := .card }}
+      <div class="col mb-3 blogBox{{$maini}} {{if ne $i 0}} moreBox{{$maini}}{{end}}" {{if gt $i 3 }} style="display:none;" {{end}}>
+        <div class="card item h-100 border-0">
+          <div class="bd-placeholder-img">
+            {{if .image}}
+            <a href="{{.link}}" {{with .external}} target="_blank" {{end}}>
+              <img src="{{.image}}" class=" img-fluid ">
+            </a>
+            {{end}}
+            {{with .youtube}}
+
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+              <iframe src="https://www.youtube.com/embed/{{.}}"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen
+                title="YouTube Video"></iframe>
+            </div>
+
+            {{end }}
+            {{with .vimeo}}
+
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+              <iframe src="https://player.vimeo.com/video/vimeo"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="vimeo video"
+                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+
+            {{end }}
+
+          </div>
+
+          <div class="card-body">
+            <h3 class="my-3 card-text"><a href="{{.link}}" {{with .external}} target="_blank" {{end}}>{{.title}}</a>
+            </h3>
+            {{ with .content}}
+            <p class="card-text">{{ . }}
+            </p>
+            {{end}}
+          </div>
+
+        </div>
+      </div>
+
+
+      {{end}}
+      
+      {{with .button}}
+      <!-- <div class="row">
+        <div class="col text-center my-4">
+          <a href="{{ .link }}"  class="btn btn-primary d-block d-sm-inline-block hover-ripple" {{ if .popup }} data-bs-toggle="modal" data-bs-target="{{ .link }}"{{end}}>{{ .label }}</a>
+        </div>
+      </div> -->
+      <div class="col-12 text-center my-4">
+        <span id="loadMore{{$i}}" class="text-center mx-auto">
+          <a href="#" class="btn btn-primary d-block d-sm-inline-block hover-ripple">Load More</a>
+        </span>
+      </div>
+      {{end}}
+
+
+      <script>
+        $(document).ready(function () {
+          $(".moreBox{{$i}}").slice(0, 3).show();
+          if ($(".blogBox{{$i}}:hidden").length != 0) {
+            $("#loadMore{{$i}}").show();
+          }
+          $("#loadMore{{$i}}").on('click', function (e) {
+            console.log("clciekd more");
+            e.preventDefault();
+            $(".moreBox{{$i}}:hidden").slice(0, 6).slideDown();
+            if ($(".moreBox{{$i}}:hidden").length == 0) {
+              $("#loadMore{{$i}}").fadeOut('slow');
+            }
+          });
+        });
+      </script>
+    </div>
+    {{end}}
+
+    {{end}}
+
+  </div>
+
+
+  </div>
+</section>
+{{end}}

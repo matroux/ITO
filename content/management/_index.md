@@ -1,6 +1,6 @@
 ---
 title: The Management
-desc: "WE PROVIDE THE SOLUTION FOR ASSET MANAGEMENT"
+desc: "MEET OUR LEADERSHIP TEAM AT ITO33"
 slug: "management/"
 image: "/images/management.jpg"
 topInfo:

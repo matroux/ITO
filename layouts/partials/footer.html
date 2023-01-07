@@ -11,7 +11,7 @@
         <h5>SOLUTIONS</h5>
         <ul class="nav flex-column">
           {{ range .Site.Params.footerlink }}
-            <li class="nav-item mb-2"><a href="{{.url}}" class="nav-link p-0 ">{{.name}}</a></li>
+            <li class="nav-item mb-2"><a href="{{.url | relLangURL}}" class="nav-link p-0 ">{{.name}}</a></li>
           {{ end }}
         </ul>
       </div>
